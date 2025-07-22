@@ -1,7 +1,9 @@
 <?php
 // learning routes in laravel same page of prefixing it to same thing well not repeating
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 // function of user data
 function getData()
 {
@@ -69,7 +71,7 @@ Route::prefix('users')->group(function () {
     // data by id 
     Route::get('/data/{id}', function (string $id) {
         $user = getData();
-        if(abort_if(!isset($user[$id]), 404)){
+        if (abort_if(!isset($user[$id]), 404)) {
             return view('not-found');
         }
         $data_byID = $user[$id];
@@ -78,7 +80,23 @@ Route::prefix('users')->group(function () {
 });
 
 
+// COntroller sections 
+// Route::get('/user', [UserController::class, 'index'])->name('user'); // Index From UserControler
+// Route::get('/user/welcome', [UserController::class, 'welcome'])->name('welcome-user'); // Welcome From UserControler
+// Route::get('/user/{id}', [UserController::class, 'getUser'])->name('get-user'); // getUser From UserControler
+// Route::get('/blog', [UserController::class, 'blog'])->name('user-blog'); // getUser From UserControler
 
+// Now learning a group class for every controller -common controller in one place
+// Laravel Controller Tutorial 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user'); // Index From UserControler
+    Route::get('/user/welcome', [UserController::class, 'welcome'])->name('welcome-user'); // Welcome From UserControler
+    Route::get('/user/{id}', [UserController::class, 'getUser'])->name('get-user'); // getUser From UserControler
+    Route::get('/blog', [UserController::class, 'blog'])->name('user-blog'); // getUser From UserControler
+});
+
+// Admin Controller
+Route::get('/admin',AdminController::class);
 
 // Custom Route for error page
 Route::fallback(function () {

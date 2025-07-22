@@ -22,6 +22,10 @@
             <a href="{{route('feedback')}}">Feedback</a>
             <a href="{{route('backend')}}">Backend</a>
             <a href="{{route('blade')}}">Basics</a>
+            <a href="{{route('user')}}">User Controllers</a>
+            <a href="{{route('welcome-user')}}">welcome user</a>
+            <a href="{{ route('user-blog') }}">Blog</a>
+
         </nav>
     </header>
     {{-- // template inheritance blade.php --}}
